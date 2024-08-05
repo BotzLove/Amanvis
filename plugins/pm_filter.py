@@ -8,7 +8,7 @@ from info import SETTINGS, STICKERS_IDS,PREMIUM_POINT,MAX_BTN, BIN_CHANNEL, USER
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto, ChatPermissions
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerIdInvalid, ChatAdminRequired
-from utils import temp, get_settings, is_check_admin, get_status, get_hash, get_size, save_group_settings, is_req_subscribed, get_poster, get_status, get_readable_time , imdb , formate_file_name
+from utils import temp, get_settings, is_check_admin, get_status, get_hash, get_size, save_group_settings, is_subscribed, get_poster, get_status, get_readable_time , imdb , formate_file_name
 from database.users_chats_db import db
 from database.ia_filterdb import Media, get_search_results, get_bad_files, get_file_details
 import random
@@ -734,7 +734,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             chat_id = grp_id
         else:
             chat_id = query.message.chat.id
-        if AUTH_CHANNEL and not await is_req_subscribed(client, query):
+        if AUTH_CHANNEL and not await is_subscribed(client, query):
             await query.answer("ɪ ʟɪᴋᴇ ʏᴏᴜʀ sᴍᴀʀᴛɴᴇss ʙᴜᴛ ᴅᴏɴ'ᴛ ʙᴇ ᴏᴠᴇʀsᴍᴀʀᴛ 😒\nꜰɪʀsᴛ ᴊᴏɪɴ ᴏᴜʀ ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ 😒", show_alert=True)
             return         
         files_ = await get_file_details(file_id)
